@@ -3,7 +3,7 @@ import {
   createResolver,
   addComponentsDir,
   installModule,
-  addImportsDir
+  addImportsDir,
 } from '@nuxt/kit'
 import { registerTailwindPath } from '@owdproject/core/runtime/utils/utilApp'
 import deepMerge from 'deepmerge'
@@ -11,14 +11,14 @@ import deepMerge from 'deepmerge'
 export default defineNuxtModule({
   meta: {
     name: 'owd-theme-win11',
-    configKey: 'desktop'
+    configKey: 'desktop',
   },
   defaults: {
     name: 'win11',
     systemBar: {
       enabled: true,
       position: 'bottom',
-    }
+    },
   },
   async setup(options, nuxt) {
     const { resolve } = createResolver(import.meta.url)
@@ -33,7 +33,7 @@ export default defineNuxtModule({
       // add components
 
       addComponentsDir({
-        path: resolve('./runtime/components')
+        path: resolve('./runtime/components'),
       })
     }
 
@@ -42,7 +42,7 @@ export default defineNuxtModule({
 
       registerTailwindPath(
         nuxt,
-        resolve('./runtime/components/**/*.{vue,mjs,ts}')
+        resolve('./runtime/components/**/*.{vue,mjs,ts}'),
       )
     }
 
@@ -56,9 +56,9 @@ export default defineNuxtModule({
           locales: [
             {
               code: 'en',
-              file: 'locales/en.ts'
-            }
-          ]
+              file: 'locales/en.ts',
+            },
+          ],
         })
       })
     }
@@ -70,6 +70,12 @@ export default defineNuxtModule({
       addImportsDir(resolve('./runtime/consts'))
       addImportsDir(resolve('./runtime/stores'))
       addImportsDir(resolve('./runtime/utils'))
+
+      nuxt.options.nitro.publicAssets = [
+        {
+          dir: resolve('./public'),
+        },
+      ]
     }
-  }
+  },
 })

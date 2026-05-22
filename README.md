@@ -13,14 +13,14 @@ This theme for Open Web Desktop recreates a Windows 11-inspired desktop experien
 ## Installation
 
 ```bash
-owd install-theme @owdproject/theme-win11
+pnpm desktop add @owdproject/theme-win11
 ```
 
 ## Usage
 
 #### Available configuration
 
-You could set this configuration in `/desktop/owd.config.ts`:
+You could set this configuration in `/desktop/desktop.config.ts`:
 
 ```js
 export default defineDesktopConfig({

@@ -1,15 +1,15 @@
 import type { useConfirm } from 'primevue/useconfirm'
 import type {
-  OwdConfirmDialogOptions,
-  OwdDialogProvider,
-} from '@owdproject/core/runtime/dialogs/owdDialogProvider'
+  DesktopConfirmDialogOptions,
+  DesktopDialogProvider,
+} from '@owdproject/kit-theme/runtime/dialogs/desktopDialogProvider'
 
 /** PrimeVue-backed dialogs; styling differs per theme via CSS tokens later. */
-export function createWin11OwdDialogs(
+export function createWin11DesktopDialogs(
   confirm: ReturnType<typeof useConfirm>,
-): OwdDialogProvider {
+): DesktopDialogProvider {
   return {
-    confirm(opts: OwdConfirmDialogOptions): Promise<boolean> {
+    confirm(opts: DesktopConfirmDialogOptions): Promise<boolean> {
       return new Promise((resolve) => {
         const toTrash = opts.extras?.toTrash
         const message =

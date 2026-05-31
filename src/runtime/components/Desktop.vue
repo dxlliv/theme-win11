@@ -3,7 +3,7 @@ import { computed, ref, Transition } from 'vue'
 import { useNow } from '@vueuse/core'
 import { useAppConfig } from 'nuxt/app'
 import { useApplicationManager } from '@owdproject/core/runtime/composables/useApplicationManager'
-import { useWorkspaceOverview } from '@owdproject/core/runtime/composables/useWorkspaceOverview'
+import { useWorkspaceManager } from '@owdproject/core/runtime/composables/useWorkspaceManager'
 import { useDesktopStore } from '@owdproject/core/runtime/stores/storeDesktop'
 import { useDesktopWorkspaceStore } from '@owdproject/core/runtime/stores/storeDesktopWorkspace'
 import { useDesktopSession } from '@owdproject/kit-theme/runtime/composables/useDesktopSession'
@@ -97,7 +97,7 @@ function toggleOverview() {
   desktopWorkspaceStore.setOverview(!desktopWorkspaceStore.overview)
 }
 
-const { onWorkspaceDragOver, onWorkspaceDrop } = useWorkspaceOverview()
+const { onWorkspaceDragOver, onWorkspaceDrop } = useWorkspaceManager()
 
 function onWorkspacePanelClick(workspaceId: string, e: MouseEvent) {
   if (!desktopWorkspaceStore.overview) return
@@ -109,10 +109,10 @@ function onWorkspacePanelClick(workspaceId: string, e: MouseEvent) {
 </script>
 
 <template>
-  <CoreDesktop v-bind="$props" :class="shellClassList" :style="shellStyle">
+  <DesktopCore v-bind="$props" :class="shellClassList" :style="shellStyle">
     <div class="win11-shell">
       <div class="win11-shell__workspace flex-1 min-h-0 relative">
-        <CoreBackground />
+        <DesktopBackground />
         <div class="win11-shell__bloom" aria-hidden="true" />
 
         <DesktopContent>
@@ -142,7 +142,7 @@ function onWorkspacePanelClick(workspaceId: string, e: MouseEvent) {
               t('win11.start.desktopN', { n: wsIndex + 1 })
             }}</span>
             <div class="win11-workspace-panel__inner">
-              <CoreApplicationRender :workspace-filter="wsId" />
+              <DesktopApplicationRender :workspace-filter="wsId" />
             </div>
           </div>
         </div>
@@ -150,7 +150,7 @@ function onWorkspacePanelClick(workspaceId: string, e: MouseEvent) {
           v-else
           class="win11-shell__windows"
         >
-          <CoreApplicationRender :workspace-filter="desktopWorkspaceStore.active" />
+          <DesktopApplicationRender :workspace-filter="desktopWorkspaceStore.active" />
         </div>
       </div>
 
@@ -257,7 +257,7 @@ function onWorkspacePanelClick(workspaceId: string, e: MouseEvent) {
     </div>
 
     <DesktopShutdown :active="shuttingDown" />
-  </CoreDesktop>
+  </DesktopCore>
 </template>
 
 <style lang="scss">

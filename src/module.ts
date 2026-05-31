@@ -6,8 +6,8 @@ import {
   addImportsDir,
   addPlugin,
 } from '@nuxt/kit'
+import { defu } from 'defu'
 import { registerTailwindPath } from '@owdproject/core/runtime/utils/utilApp'
-import deepMerge from 'deepmerge'
 import {
   WIN11_EXPLORER_QUICK_ACCESS_SEED,
   WIN11_EXPLORER_SPECIAL_FOLDERS,
@@ -45,8 +45,9 @@ export default defineNuxtModule({
 
     await installModule('@owdproject/kit-theme')
 
-    nuxt.options.runtimeConfig.public.desktop = deepMerge(
-      nuxt.options.runtimeConfig.public.desktop,
+    nuxt.options.runtimeConfig.public ??= {}
+    nuxt.options.runtimeConfig.public.desktop = defu(
+      nuxt.options.runtimeConfig.public.desktop ?? {},
       options,
     )
 
@@ -75,7 +76,7 @@ export default defineNuxtModule({
     addImportsDir(resolve('./runtime/composables'))
 
     addPlugin({
-      src: resolve('./runtime/plugins/50.owd-theme-win11-dialogs.client.ts'),
+      src: resolve('./runtime/plugins/50.desktop-theme-win11-dialogs.client.ts'),
       mode: 'client',
     })
 

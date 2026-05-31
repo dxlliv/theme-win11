@@ -33,7 +33,7 @@
     }
 
     /*
-     * CoreWindow applies `overflow-y: auto` on `.owd-window__content`, which scrolls the
+     * DesktopWindow applies `overflow-y: auto` on `.owd-window__content`, which scrolls the
      * entire explorer body (command bar + nav + grid + status bar). Pin chrome: scroll only
      * inside the content pane / nav columns.
      */

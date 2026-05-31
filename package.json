@@ -36,17 +36,18 @@
     "@owdproject/kit-explorer": "workspace:*",
     "@owdproject/kit-fs": "workspace:*",
     "@owdproject/kit-theme": "workspace:*",
-    "@owdproject/module-fs": "workspace:*",
-    "deepmerge": "^4.3.1",
+    "defu": "^6.1.4",
     "vuedraggable": "^4.1.0"
   },
   "devDependencies": {
     "@nuxt/module-builder": "^1.0.2",
-    "@owdproject/app-classic-audioplayer": "workspace:*",
     "@owdproject/core": "workspace:*",
-    "@owdproject/module-persistence": "workspace:*",
     "nuxt": "^4.3.0",
     "typescript": "~5.9.3"
+  },
+  "optionalDependencies": {
+    "@owdproject/app-classic-audioplayer": "0.0.4",
+    "@owdproject/module-persistence": "0.0.2"
   },
   "peerDependencies": {
     "@owdproject/core": "^3.2.0"

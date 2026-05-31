@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import type { IWindowController } from '@owdproject/core'
-import { useDesktopExplorerStore } from '@owdproject/core/runtime/stores/storeDesktopExplorer'
+import { useExplorerStore } from '@owdproject/kit-fs/runtime/stores/storeExplorer'
 import { useRuntimeConfig } from 'nuxt/app'
 import { computed, nextTick, onMounted, ref, withDefaults } from 'vue'
 import Tree from 'primevue/tree'
@@ -28,7 +28,7 @@ type ExplorerNavFolder = {
 }
 
 const { t } = useI18n()
-const desktopExplorerStore = useDesktopExplorerStore()
+const desktopExplorerStore = useExplorerStore()
 const runtimeConfig = useRuntimeConfig()
 const selectedTreeKey = ref<string>('')
 

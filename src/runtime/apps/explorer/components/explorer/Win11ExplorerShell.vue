@@ -12,6 +12,7 @@ import Win11ExplorerStatusBar from './Win11ExplorerStatusBar.vue'
 import Win11ExplorerTabStrip from './Win11ExplorerTabStrip.vue'
 import { useI18n } from 'vue-i18n'
 import { provide } from 'vue'
+import { useDesktopWindowDragHandlersInjected } from '@owdproject/kit-theme/runtime/composables/useDesktopWindowDragHandlers'
 
 const props = defineProps<{
   config?: WindowConfig
@@ -67,6 +68,10 @@ async function navigateExplorerTo(target: string) {
   })
   await fsExplorer.navigateToDirectory(normalized)
 }
+
+const { onDragStart, onDragEnd } = useDesktopWindowDragHandlersInjected(
+  () => props.window,
+)
 </script>
 
 <template>
@@ -75,6 +80,8 @@ async function navigateExplorerTo(target: string) {
     :chrome-padding="false"
     :window="window"
     :config="config"
+    @drag:start="onDragStart"
+    @drag:end="onDragEnd"
   >
     <template #nav-title>
       <Win11ExplorerTabStrip

@@ -50,6 +50,12 @@
     "@owdproject/module-persistence": "0.0.2"
   },
   "peerDependencies": {
-    "@owdproject/core": "^3.3.0"
+    "@owdproject/core": "^3.3.0",
+    "@owdproject/module-fs": "^0.0.6"
+  },
+  "peerDependenciesMeta": {
+    "@owdproject/module-fs": {
+      "optional": true
+    }
   }
 }

@@ -8,8 +8,15 @@ import { useDesktopStore } from '@owdproject/core/runtime/stores/storeDesktop'
 import { useDesktopWorkspaceStore } from '@owdproject/core/runtime/stores/storeDesktopWorkspace'
 import { useDesktopSession } from '@owdproject/kit-theme/runtime/composables/useDesktopSession'
 import { useBlockNonInputContextMenu } from '@owdproject/kit-theme/runtime/composables/useBlockNonInputContextMenu'
+import { useDesktopWorkArea } from '@owdproject/kit-theme/runtime/composables/useDesktopWorkArea'
+import {
+  provideDesktopShellStage,
+  provideDesktopWorkArea,
+} from '@owdproject/kit-theme/runtime/composables/provideDesktopShellStage'
+import Win11WindowSnapHints from './Win11WindowSnapHints.vue'
+import Win11WorkspaceEdgeHints from './Win11WorkspaceEdgeHints.vue'
 import { useI18n } from 'vue-i18n'
-import searchIconUrl from '../../public/search.webp?url'
+import searchIconUrl from '../../../public/search.webp?url'
 
 const appConfig = useAppConfig()
 const applicationManager = useApplicationManager()
@@ -38,6 +45,11 @@ const shellStyle = computed(() => ({
 }))
 
 useBlockNonInputContextMenu()
+
+const shellStageRef = ref<HTMLElement | null>(null)
+const { workArea } = useDesktopWorkArea(shellStageRef)
+provideDesktopShellStage(shellStageRef)
+provideDesktopWorkArea(workArea)
 
 const now = useNow({ interval: 1000 })
 const clockTime = computed(() =>
@@ -111,7 +123,13 @@ function onWorkspacePanelClick(workspaceId: string, e: MouseEvent) {
 <template>
   <DesktopCore v-bind="$props" :class="shellClassList" :style="shellStyle">
     <div class="win11-shell">
-      <div class="win11-shell__workspace flex-1 min-h-0 relative">
+      <Win11WorkspaceEdgeHints v-if="workspacesEnabled" />
+      <Win11WindowSnapHints />
+
+      <div
+        ref="shellStageRef"
+        class="win11-shell__workspace flex-1 min-h-0 relative"
+      >
         <DesktopBackground />
         <div class="win11-shell__bloom" aria-hidden="true" />
 

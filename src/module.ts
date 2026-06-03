@@ -28,6 +28,9 @@ export default defineNuxtModule({
     workspaces: {
       enabled: true,
     },
+    windows: {
+      position: 'fixed',
+    },
     explorer: {
       quickAccess: WIN11_EXPLORER_QUICK_ACCESS_SEED,
       quickAccessExtra: [],
@@ -44,6 +47,13 @@ export default defineNuxtModule({
     const { resolve } = createResolver(import.meta.url)
 
     await installModule('@owdproject/kit-theme')
+
+    if (nuxt.options.modules.includes('@owdproject/module-fs')) {
+      addPlugin({
+        src: resolve('./runtime/plugins/win11-module-fs-recent.client.ts'),
+        mode: 'client',
+      })
+    }
 
     nuxt.options.runtimeConfig.public ??= {}
     nuxt.options.runtimeConfig.public.desktop = defu(

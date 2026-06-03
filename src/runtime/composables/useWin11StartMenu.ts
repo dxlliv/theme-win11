@@ -1,8 +1,9 @@
 import { useApplicationEntries } from '@owdproject/core/runtime/composables/useApplicationEntries'
 import { useDesktopSession } from '@owdproject/kit-theme/runtime/composables/useDesktopSession'
-import { useFsRecentFiles } from '@owdproject/module-fs/runtime/composables/useFsRecentFiles'
-import { openVfsFile } from '@owdproject/module-fs/runtime/utils/utilFsOpenFile'
-import type { FsRecentFileEntry } from '@owdproject/module-fs/runtime/utils/utilFsRecentFiles'
+import {
+  useWin11StartMenuFs,
+  type Win11RecentFileEntry,
+} from './useWin11StartMenuFs'
 import { computed, ref, watch, type UnwrapRef } from 'vue'
 
 /** Device-local shell prefs (survives reload). */
@@ -86,9 +87,9 @@ export function useWin11StartMenu() {
   const {
     recentFiles,
     loadRecentFiles,
-    recordRecentFile,
     filterRecentFiles,
-  } = useFsRecentFiles()
+    openRecentFile: openRecentFileViaFs,
+  } = useWin11StartMenuFs()
 
   const apps = appEntriesApi.sortedAppEntries('title', 'primary')
   type AppEntry = UnwrapRef<typeof apps>[number]
@@ -219,9 +220,8 @@ export function useWin11StartMenu() {
     void entry.application.execCommand(entry.command)
   }
 
-  async function openRecentFile(entry: FsRecentFileEntry) {
-    const ok = await openVfsFile(entry.path)
-    if (ok) recordRecentFile(entry.path)
+  async function openRecentFile(entry: Win11RecentFileEntry) {
+    await openRecentFileViaFs(entry)
   }
 
   function powerOff() {

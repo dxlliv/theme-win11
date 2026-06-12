@@ -1,10 +1,9 @@
 <script setup lang="ts">
 import type { IWindowController, WindowConfig } from '@owdproject/core'
-import { useExplorerTabs } from '@owdproject/kit-explorer/runtime/composables/useExplorerTabs'
+import { useExplorerTabs } from '@owdproject/module-fs/runtime/composables/useExplorerTabs'
 import type { MenuItem } from 'primevue/menuitem'
-import { useFileSystemExplorer } from '@owdproject/module-fs/runtime/composables/useFileSystemExplorer'
-import createExplorerFsOperations from '@owdproject/kit-fs/runtime/composables/useExplorerFsOperations'
-import Frame from '@owdproject/kit-fs/runtime/components/explorer/Frame.vue'
+import { useExplorerWindow } from '@owdproject/module-fs/runtime/composables/useExplorerWindow'
+import Frame from '@owdproject/kit-primevue/runtime/components/explorer/Frame.vue'
 import Win11ExplorerCommandBar from './Win11ExplorerCommandBar.vue'
 import Win11ExplorerChromeBand from './Win11ExplorerChromeBand.vue'
 import Win11ExplorerMainPane from './Win11ExplorerMainPane.vue'
@@ -12,7 +11,7 @@ import Win11ExplorerStatusBar from './Win11ExplorerStatusBar.vue'
 import Win11ExplorerTabStrip from './Win11ExplorerTabStrip.vue'
 import { useI18n } from 'vue-i18n'
 import { provide } from 'vue'
-import { useDesktopWindowDragHandlersInjected } from '@owdproject/kit-theme/runtime/composables/useDesktopWindowDragHandlers'
+import { useWindowDragHandlers } from '@owdproject/core/runtime/composables/useWindowDragHandlers'
 
 const props = defineProps<{
   config?: WindowConfig
@@ -22,9 +21,8 @@ const props = defineProps<{
 
 const { t } = useI18n()
 
-const fsExplorer = useFileSystemExplorer(
+const fsExplorer = useExplorerWindow(
   props.window,
-  createExplorerFsOperations,
   t,
 )
 
@@ -69,7 +67,7 @@ async function navigateExplorerTo(target: string) {
   await fsExplorer.navigateToDirectory(normalized)
 }
 
-const { onDragStart, onDragEnd } = useDesktopWindowDragHandlersInjected(
+const { onDragStart, onDragEnd } = useWindowDragHandlers(
   () => props.window,
 )
 </script>

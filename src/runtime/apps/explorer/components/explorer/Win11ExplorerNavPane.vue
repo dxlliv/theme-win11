@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import type { IWindowController } from '@owdproject/core'
-import { useExplorerStore } from '@owdproject/kit-fs/runtime/stores/storeExplorer'
+import { useExplorerStore } from '@owdproject/module-fs/runtime/stores/storeExplorer'
 import { useRuntimeConfig } from 'nuxt/app'
 import { computed, nextTick, onMounted, ref, withDefaults } from 'vue'
 import Tree from 'primevue/tree'

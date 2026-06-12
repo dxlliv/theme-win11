@@ -2,7 +2,7 @@ import type { useConfirm } from 'primevue/useconfirm'
 import type {
   DesktopConfirmDialogOptions,
   DesktopDialogProvider,
-} from '@owdproject/kit-theme/runtime/dialogs/desktopDialogProvider'
+} from '@owdproject/core/runtime/dialogs/desktopDialogProvider'
 
 /** PrimeVue-backed dialogs; styling differs per theme via CSS tokens later. */
 export function createWin11DesktopDialogs(

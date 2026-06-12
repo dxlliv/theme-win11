@@ -1,22 +1,23 @@
 import {
-  defineNuxtModule,
   createResolver,
   addComponentsDir,
   installModule,
   addImportsDir,
   addPlugin,
 } from '@nuxt/kit'
-import { defu } from 'defu'
-import { registerTailwindPath } from '@owdproject/core/runtime/utils/utilApp'
+import { defineDesktopTheme } from '@owdproject/core'
+import {
+  registerTailwindPath,
+  registerThemeTailwindPath,
+} from '@owdproject/kit-primevue/kit/registerTailwindPath'
 import {
   WIN11_EXPLORER_QUICK_ACCESS_SEED,
   WIN11_EXPLORER_SPECIAL_FOLDERS,
 } from './runtime/apps/explorer/explorerNav.defaults'
 
-export default defineNuxtModule({
+export default defineDesktopTheme({
   meta: {
-    name: 'owd-theme-win11',
-    configKey: 'desktop',
+    name: 'desktop-theme-win11',
   },
   defaults: {
     name: 'win11',
@@ -43,10 +44,11 @@ export default defineNuxtModule({
       },
     },
   },
-  async setup(options, nuxt) {
+  async setup(_options, nuxt) {
     const { resolve } = createResolver(import.meta.url)
 
-    await installModule('@owdproject/kit-theme')
+    await installModule('@owdproject/kit-primevue')
+    registerThemeTailwindPath(nuxt, import.meta.url)
 
     if (nuxt.options.modules.includes('@owdproject/module-fs')) {
       addPlugin({
@@ -55,20 +57,10 @@ export default defineNuxtModule({
       })
     }
 
-    nuxt.options.runtimeConfig.public ??= {}
-    nuxt.options.runtimeConfig.public.desktop = defu(
-      nuxt.options.runtimeConfig.public.desktop ?? {},
-      options,
-    )
-
     addComponentsDir({
       path: resolve('./runtime/components'),
     })
 
-    registerTailwindPath(
-      nuxt,
-      resolve('./runtime/components/**/*.{vue,mjs,ts}'),
-    )
     registerTailwindPath(nuxt, resolve('./runtime/pages/**/*.{vue,mjs,ts}'))
 
     nuxt.hook('i18n:registerModule', (register) => {
@@ -99,15 +91,7 @@ export default defineNuxtModule({
       path: resolve('./runtime/apps/settings/components'),
     })
 
-    registerTailwindPath(
-      nuxt,
-      resolve('./runtime/apps/settings/components/**/*.{vue,mjs,ts}'),
-    )
-
     if (nuxt.options.modules.includes('@owdproject/module-fs')) {
-      /** Loads `@owdproject/kit-fs` automatically (see kit-explorer module). */
-      await installModule('@owdproject/kit-explorer')
-
       addPlugin({
         src: resolve('./runtime/apps/explorer/plugin.ts'),
         mode: 'client',
@@ -116,11 +100,6 @@ export default defineNuxtModule({
       addComponentsDir({
         path: resolve('./runtime/apps/explorer/components'),
       })
-
-      registerTailwindPath(
-        nuxt,
-        resolve('./runtime/apps/explorer/components/**/*.{vue,mjs,ts}'),
-      )
     }
 
     nuxt.options.nitro.publicAssets = [

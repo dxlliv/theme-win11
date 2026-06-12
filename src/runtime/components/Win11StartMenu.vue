@@ -215,13 +215,15 @@ function localizeCategoryName(name: string) {
     .toLowerCase()
     .replace(/[\s_]+/g, '-')
 
-  if (normalized === 'system-tools') {
-    return t('win11.start.categories.systemTools')
+  const map: Record<string, string> = {
+    'system-tools': t('win11.start.categories.systemTools'),
+    'other': t('win11.start.categories.other'),
+    'games': t('win11.start.categories.games'),
+    'tools': t('win11.start.categories.tools'),
+    'productivity': t('win11.start.categories.productivity'),
   }
-  if (normalized === 'other') {
-    return t('win11.start.categories.other')
-  }
-  return name
+
+  return map[normalized] ?? name
 }
 
 /** Flat A–Z list for grid and list views. */

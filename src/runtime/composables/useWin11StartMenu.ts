@@ -1,5 +1,5 @@
 import { useApplicationEntries } from '@owdproject/core/runtime/composables/useApplicationEntries'
-import { useDesktopSession } from '@owdproject/kit-theme/runtime/composables/useDesktopSession'
+import { useDesktopSession } from '@owdproject/core/runtime/composables/useDesktopSession'
 import {
   useWin11StartMenuFs,
   type Win11RecentFileEntry,

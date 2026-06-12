@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { withDefaults } from 'vue'
-import Frame from '@owdproject/kit-fs/runtime/components/explorer/Frame.vue'
-import { useDesktopWindowDragHandlersInjected } from '@owdproject/kit-theme/runtime/composables/useDesktopWindowDragHandlers'
+import Frame from '@owdproject/kit-primevue/runtime/components/explorer/Frame.vue'
+import { useWindowDragHandlers } from '@owdproject/core/runtime/composables/useWindowDragHandlers'
 
 const props = withDefaults(
   defineProps<{
@@ -12,7 +12,7 @@ const props = withDefaults(
   { chromePadding: true },
 )
 
-const { onDragStart, onDragEnd } = useDesktopWindowDragHandlersInjected(
+const { onDragStart, onDragEnd } = useWindowDragHandlers(
   () => props.window,
 )
 </script>

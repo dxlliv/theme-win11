@@ -6,13 +6,9 @@ import { useApplicationManager } from '@owdproject/core/runtime/composables/useA
 import { useWorkspaceManager } from '@owdproject/core/runtime/composables/useWorkspaceManager'
 import { useDesktopStore } from '@owdproject/core/runtime/stores/storeDesktop'
 import { useDesktopWorkspaceStore } from '@owdproject/core/runtime/stores/storeDesktopWorkspace'
-import { useDesktopSession } from '@owdproject/kit-theme/runtime/composables/useDesktopSession'
-import { useBlockNonInputContextMenu } from '@owdproject/kit-theme/runtime/composables/useBlockNonInputContextMenu'
-import { useDesktopWorkArea } from '@owdproject/kit-theme/runtime/composables/useDesktopWorkArea'
-import {
-  provideDesktopShellStage,
-  provideDesktopWorkArea,
-} from '@owdproject/kit-theme/runtime/composables/provideDesktopShellStage'
+import { useDesktopSession } from '@owdproject/core/runtime/composables/useDesktopSession'
+import { useBlockNonInputContextMenu } from '@owdproject/core/runtime/composables/useBlockNonInputContextMenu'
+import { useDesktopWorkArea } from '@owdproject/core/runtime/composables/useDesktopWorkArea'
 import Win11WindowSnapHints from './Win11WindowSnapHints.vue'
 import Win11WorkspaceEdgeHints from './Win11WorkspaceEdgeHints.vue'
 import { useI18n } from 'vue-i18n'
@@ -47,9 +43,7 @@ const shellStyle = computed(() => ({
 useBlockNonInputContextMenu()
 
 const shellStageRef = ref<HTMLElement | null>(null)
-const { workArea } = useDesktopWorkArea(shellStageRef)
-provideDesktopShellStage(shellStageRef)
-provideDesktopWorkArea(workArea)
+useDesktopWorkArea(shellStageRef)
 
 const now = useNow({ interval: 1000 })
 const clockTime = computed(() =>

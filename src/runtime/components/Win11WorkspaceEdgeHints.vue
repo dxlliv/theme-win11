@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import WorkspaceEdgeHintsBase from '@owdproject/kit-theme/runtime/components/WorkspaceEdgeHintsBase.vue'
+import WorkspaceEdgeHintsBase from '@owdproject/core/runtime/components/workspace/WorkspaceEdgeHintsBase.vue'
 import { useAppConfig } from 'nuxt/app'
 import { computed } from 'vue'
 

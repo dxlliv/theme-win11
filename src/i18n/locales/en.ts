@@ -59,6 +59,9 @@ export default {
       categories: {
         other: 'Other',
         systemTools: 'System Tools',
+        games: 'Games',
+        tools: 'Tools',
+        productivity: 'Productivity',
       },
       context: {
         menuLabel: 'Start menu actions',

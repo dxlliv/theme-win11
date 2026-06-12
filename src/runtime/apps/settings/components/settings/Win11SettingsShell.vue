@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import type { IWindowController, WindowConfig } from '@owdproject/core'
-import Frame from '@owdproject/kit-fs/runtime/components/explorer/Frame.vue'
+import Frame from '@owdproject/kit-primevue/runtime/components/explorer/Frame.vue'
 import Win11SettingsPersonalization from './Win11SettingsPersonalization.vue'
 import { ref } from 'vue'
 import { useI18n } from 'vue-i18n'
@@ -21,20 +21,14 @@ const { t } = useI18n()
 
 <template>
   <Frame :window="window" :config="config">
-    <div class="win11-settings-shell flex h-full min-h-0">
-      <aside
-        class="win11-settings-shell__nav flex flex-col gap-1 w-52 shrink-0 border-r border-solid border-[rgba(255,255,255,0.1)] p-3"
-      >
+    <div class="win11-settings-shell">
+      <aside class="win11-settings-shell__nav">
         <button
           v-for="s in sections"
           :key="s.id"
           type="button"
-          class="text-left rounded px-3 py-2 text-sm transition-colors"
-          :class="
-            active === s.id
-              ? 'bg-[rgba(255,255,255,0.12)] font-medium'
-              : 'hover:bg-[rgba(255,255,255,0.08)]'
-          "
+          class="win11-settings-shell__nav-btn"
+          :class="{ 'win11-settings-shell__nav-btn--active': active === s.id }"
           @click="active = s.id"
         >
           {{
@@ -44,17 +38,15 @@ const { t } = useI18n()
           }}
         </button>
       </aside>
-      <main
-        class="win11-settings-shell__content flex-1 min-w-0 overflow-auto p-6"
-      >
-        <h2 class="text-lg font-semibold mb-3">
+      <main class="win11-settings-shell__content">
+        <h2 class="win11-settings-shell__title">
           {{
             active === 'system'
               ? t('win11.settings.system')
               : t('win11.settings.personalization.title')
           }}
         </h2>
-        <p v-if="active === 'system'" class="text-sm opacity-80">
+        <p v-if="active === 'system'" class="win11-settings-shell__placeholder">
           {{ t('win11.settings.systemPlaceholder') }}
         </p>
         <Win11SettingsPersonalization v-else />
@@ -62,3 +54,70 @@ const { t } = useI18n()
     </div>
   </Frame>
 </template>
+
+<style scoped lang="scss">
+.win11-settings-shell {
+  display: flex;
+  height: 100%;
+  min-height: 0;
+  overflow: hidden;
+}
+
+.win11-settings-shell__nav {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  width: 208px;
+  flex-shrink: 0;
+  border-right: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 12px 8px;
+  overflow-y: auto;
+}
+
+.win11-settings-shell__nav-btn {
+  display: block;
+  width: 100%;
+  text-align: left;
+  background: transparent;
+  border: none;
+  border-radius: 6px;
+  padding: 8px 12px;
+  font-size: 13px;
+  font-family: inherit;
+  color: inherit;
+  cursor: pointer;
+  transition: background 0.12s ease;
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.08);
+  }
+
+  &--active {
+    background: rgba(255, 255, 255, 0.12);
+    font-weight: 600;
+
+    &:hover {
+      background: rgba(255, 255, 255, 0.15);
+    }
+  }
+}
+
+.win11-settings-shell__content {
+  flex: 1;
+  min-width: 0;
+  overflow-y: auto;
+  padding: 24px;
+}
+
+.win11-settings-shell__title {
+  font-size: 18px;
+  font-weight: 600;
+  margin: 0 0 16px;
+}
+
+.win11-settings-shell__placeholder {
+  font-size: 13px;
+  opacity: 0.75;
+  line-height: 1.6;
+}
+</style>

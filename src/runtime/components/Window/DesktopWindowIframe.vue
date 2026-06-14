@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import type { IWindowController, WindowConfig } from '@owdproject/core'
 import { computed } from 'vue'
-import Window from './Window.vue'
 
 const props = defineProps<{
   config?: WindowConfig
@@ -23,7 +22,7 @@ const isWebUrl = computed(() => /^https?:\/\//i.test(iframeSrc.value))
 </script>
 
 <template>
-  <Window
+  <DesktopWindow
     :config="config"
     :window="window"
     :chrome-padding="false"
@@ -39,7 +38,7 @@ const isWebUrl = computed(() => /^https?:\/\//i.test(iframeSrc.value))
     <div v-else class="win11-window-iframe__empty">
       No URL to display
     </div>
-  </Window>
+  </DesktopWindow>
 </template>
 
 <style scoped lang="scss">

@@ -124,7 +124,7 @@ function onWorkspacePanelClick(workspaceId: string, e: MouseEvent) {
         ref="shellStageRef"
         class="win11-shell__workspace flex-1 min-h-0 relative"
       >
-        <DesktopBackground />
+        <DesktopCoreBackground />
         <div class="win11-shell__bloom" aria-hidden="true" />
 
         <DesktopContent>

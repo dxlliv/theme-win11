@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import type { IWindowController, WindowConfig } from '@owdproject/core'
-import Frame from '@owdproject/kit-primevue/runtime/components/explorer/Frame.vue'
+import Frame from '../../../explorer/components/explorer/Win11ExplorerFrame.vue'
 import Win11SettingsPersonalization from './Win11SettingsPersonalization.vue'
 import { ref } from 'vue'
 import { useI18n } from 'vue-i18n'

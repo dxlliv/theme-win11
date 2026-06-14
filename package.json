@@ -2,7 +2,7 @@
   "name": "@owdproject/theme-win11",
   "version": "0.0.1",
   "description": "Windows 11 desktop theme for OWD clients",
-  "homepage": "https://github.com/owdproject/theme-win11#readme",
+  "homepage": "https://github.com/dxlliv/theme-win11#readme",
   "license": "MIT",
   "author": {
     "name": "Diego Villa",
@@ -19,11 +19,17 @@
   "main": "./dist/module.mjs",
   "typesVersions": {
     "*": {
-      ".": ["./dist/types.d.mts"]
+      ".": [
+        "./dist/types.d.mts"
+      ]
     }
   },
-  "files": ["dist"],
-  "nx": { "name": "theme-win11" },
+  "files": [
+    "dist"
+  ],
+  "nx": {
+    "name": "theme-win11"
+  },
   "scripts": {
     "prepack": "nuxt-module-build build",
     "dev": "pnpm run dev:prepare && cd playground && pnpm exec nuxt dev",

@@ -154,7 +154,7 @@ function onWorkspacePanelClick(workspaceId: string, e: MouseEvent) {
               t('win11.start.desktopN', { n: wsIndex + 1 })
             }}</span>
             <div class="win11-workspace-panel__inner">
-              <DesktopApplicationRender :workspace-filter="wsId" />
+              <DesktopCoreApplicationRender :workspace-filter="wsId" />
             </div>
           </div>
         </div>
@@ -162,7 +162,7 @@ function onWorkspacePanelClick(workspaceId: string, e: MouseEvent) {
           v-else
           class="win11-shell__windows"
         >
-          <DesktopApplicationRender :workspace-filter="desktopWorkspaceStore.active" />
+          <DesktopCoreApplicationRender :workspace-filter="desktopWorkspaceStore.active" />
         </div>
       </div>
 

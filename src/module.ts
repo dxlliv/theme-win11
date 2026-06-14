@@ -59,6 +59,7 @@ export default defineDesktopTheme({
 
     addComponentsDir({
       path: resolve('./runtime/components'),
+      pathPrefix: false,
     })
 
     registerTailwindPath(nuxt, resolve('./runtime/pages/**/*.{vue,mjs,ts}'))

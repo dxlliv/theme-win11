@@ -3,6 +3,7 @@ import type { IWindowController } from '@owdproject/core'
 import { useExplorerStore } from '@owdproject/module-fs/runtime/stores/storeExplorer'
 import { useRuntimeConfig } from 'nuxt/app'
 import { computed, nextTick, onMounted, ref, withDefaults } from 'vue'
+import { useDesktopShellIdentity } from '@owdproject/core/runtime/composables/useDesktopShellIdentity'
 import Tree from 'primevue/tree'
 import type { TreeNode } from 'primevue/treenode'
 import draggable from 'vuedraggable'
@@ -44,6 +45,8 @@ const explorerConfig = computed(
   () => runtimeConfig.public.desktop.explorer ?? {},
 )
 
+const { userHome } = useDesktopShellIdentity()
+
 function normalizeFolderList(list: unknown): ExplorerNavFolder[] {
   if (!Array.isArray(list)) return []
 
@@ -59,10 +62,22 @@ function normalizeFolderList(list: unknown): ExplorerNavFolder[] {
 
       if (!id || !label || !rawPath) return null
 
+      let resolvedPath = rawPath.startsWith('/') ? rawPath : `/${rawPath}`
+      if (
+        !resolvedPath.startsWith(userHome.value) &&
+        !resolvedPath.startsWith('/home/') &&
+        !resolvedPath.startsWith('/Users/')
+      ) {
+        const relative = resolvedPath.replace(/^\//, '')
+        resolvedPath = userHome.value.endsWith('/')
+          ? `${userHome.value}${relative}`
+          : `${userHome.value}/${relative}`
+      }
+
       return {
         id,
         label,
-        path: rawPath.startsWith('/') ? rawPath : `/${rawPath}`,
+        path: resolvedPath,
         icon: icon || undefined,
       }
     })

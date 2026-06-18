@@ -9,7 +9,7 @@ import { defineDesktopTheme } from '@owdproject/core'
 import {
   registerTailwindPath,
   registerThemeTailwindPath,
-} from '@owdproject/kit-primevue/kit/registerTailwindPath'
+} from '@owdproject/kit-tailwind/kit/registerTailwindPath'
 import {
   WIN11_EXPLORER_QUICK_ACCESS_SEED,
   WIN11_EXPLORER_SPECIAL_FOLDERS,
@@ -32,6 +32,12 @@ export default defineDesktopTheme({
     windows: {
       position: 'fixed',
     },
+    fs: {
+      defaultUserHome: '/Users/Guest',
+      mounts: {
+        '/Users': 'WebStorage',
+      },
+    },
     explorer: {
       quickAccess: WIN11_EXPLORER_QUICK_ACCESS_SEED,
       quickAccessExtra: [],
@@ -40,6 +46,7 @@ export default defineDesktopTheme({
       specialFoldersExtra: [],
       specialFoldersOverride: [],
       mountLabels: {
+        '/Users': 'Local Disk',
         '/home': 'Local Disk',
       },
     },

@@ -1,9 +1,9 @@
 import {
   createResolver,
   addComponentsDir,
-  installModule,
   addImportsDir,
   addPlugin,
+  installModule,
 } from '@nuxt/kit'
 import { defineDesktopTheme } from '@owdproject/core'
 import {
@@ -55,6 +55,7 @@ export default defineDesktopTheme({
     const { resolve } = createResolver(import.meta.url)
 
     await installModule('@owdproject/kit-primevue')
+
     registerThemeTailwindPath(nuxt, import.meta.url)
 
     if (nuxt.options.modules.includes('@owdproject/module-fs')) {

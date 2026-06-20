@@ -11,6 +11,7 @@ import { useBlockNonInputContextMenu } from '@owdproject/core/runtime/composable
 import { useDesktopWorkArea } from '@owdproject/core/runtime/composables/useDesktopWorkArea'
 import Win11WindowSnapHints from './Win11WindowSnapHints.vue'
 import Win11WorkspaceEdgeHints from './Win11WorkspaceEdgeHints.vue'
+import Win11ConfirmDialogs from './Win11ConfirmDialogs.vue'
 import { useI18n } from 'vue-i18n'
 import searchIconUrl from '../../../public/search.webp?url'
 
@@ -269,6 +270,8 @@ function onWorkspacePanelClick(workspaceId: string, e: MouseEvent) {
     </div>
 
     <DesktopShutdown :active="shuttingDown" />
+
+    <Win11ConfirmDialogs />
   </DesktopCore>
 </template>
 

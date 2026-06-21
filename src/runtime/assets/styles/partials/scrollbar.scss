@@ -53,7 +53,8 @@ body:has(.owd-desktop--win11) {
 .owd-desktop--win11 {
   .win11-explorer-nav-pane__scroll,
   .win11-task-view__grid-scroll,
-  .win11-settings-shell__content {
+  .win11-settings__scroll,
+  .win11-settings__nav-list {
     @include win11-modern-scrollbar(true);
   }
 

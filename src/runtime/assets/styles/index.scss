@@ -2,6 +2,7 @@
 
 @use './partials/scrollbar.scss';
 @use './partials/card.scss';
+@use './partials/window-chrome.scss';
 @use './partials/button.scss';
 @use './partials/menu.scss';
 @use './partials/contextmenu.scss';
@@ -12,6 +13,7 @@
 @use './partials/explorer-shell.scss';
 @use './partials/explorer-prime-overlays.scss';
 @use './partials/explorer-chrome.scss';
+@use './partials/settings.scss';
 @use './partials/personalization.scss';
 
 :root {

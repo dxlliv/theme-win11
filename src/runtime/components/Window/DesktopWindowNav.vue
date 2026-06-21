@@ -1,9 +1,10 @@
 <script setup lang="ts">
 import { inject } from 'vue'
+import type { IWindowController } from '@owdproject/core'
 import { useToggleWindowMaximize } from '@owdproject/core/runtime/composables/useToggleWindowMaximize'
-import Minimize from '@owdproject/kit-primevue/runtime/components/explorer/button/Minimize.vue'
-import Maximize from '@owdproject/kit-primevue/runtime/components/explorer/button/Maximize.vue'
-import Close from '@owdproject/kit-primevue/runtime/components/explorer/button/Close.vue'
+import ButtonWindowNavMinimize from '../Button/ButtonWindowNavMinimize.vue'
+import ButtonWindowNavMaximize from '../Button/ButtonWindowNavMaximize.vue'
+import ButtonWindowNavClose from '../Button/ButtonWindowNavClose.vue'
 
 const windowController = inject<IWindowController>('windowController')
 const toggleWindowMaximize = useToggleWindowMaximize()
@@ -57,17 +58,17 @@ function onWindowClose() {
         <slot name="append" />
       </div>
 
-      <Minimize
+      <ButtonWindowNavMinimize
         v-if="!windowController?.instanced || windowController?.isMinimizable"
         @mousedown.stop
         @click.stop="onWindowMinimize"
       />
-      <Maximize
+      <ButtonWindowNavMaximize
         v-if="windowController?.isMaximizable"
         @mousedown.stop
         @click.stop="onWindowMaximize"
       />
-      <Close
+      <ButtonWindowNavClose
         v-if="!windowController?.instanced || windowController?.isDestroyable"
         @mousedown.stop
         @click.stop="onWindowClose"
@@ -77,17 +78,6 @@ function onWindowClose() {
 </template>
 
 <style scoped lang="scss">
-:deep(.owd-window-nav) {
-  display: flex;
-  align-items: center;
-  flex-shrink: 0;
-  width: 100%;
-  height: var(--owd-windov-nav-height);
-  min-height: var(--owd-windov-nav-height);
-  font-size: var(--p-font-size);
-  line-height: 1rem;
-}
-
 .owd-window-nav__btn-group {
   display: flex;
   flex-shrink: 0;
@@ -105,6 +95,8 @@ function onWindowClose() {
 }
 
 .owd-window-nav__btn-group--append-inner {
+  display: flex;
+  align-items: stretch;
   gap: 0;
   margin: 0;
   padding: 0;

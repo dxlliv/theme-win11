@@ -3,7 +3,6 @@ import type { IWindowController, WindowConfig } from '@owdproject/core'
 import { useExplorerTabs } from '@owdproject/module-fs/runtime/composables/useExplorerTabs'
 import type { MenuItem } from 'primevue/menuitem'
 import { useExplorerWindow } from '@owdproject/module-fs/runtime/composables/useExplorerWindow'
-import Frame from './Win11ExplorerFrame.vue'
 import Win11ExplorerCommandBar from './Win11ExplorerCommandBar.vue'
 import Win11ExplorerChromeBand from './Win11ExplorerChromeBand.vue'
 import Win11ExplorerMainPane from './Win11ExplorerMainPane.vue'
@@ -73,11 +72,10 @@ const { onDragStart, onDragEnd } = useWindowDragHandlers(
 </script>
 
 <template>
-  <Frame
+  <DesktopWindow
     class="win11-explorer-frame"
     :chrome-padding="false"
     :window="window"
-    :config="config"
     @drag:start="onDragStart"
     @drag:end="onDragEnd"
   >
@@ -121,7 +119,7 @@ const { onDragStart, onDragEnd } = useWindowDragHandlers(
         :fs-explorer="fsExplorer"
       />
     </div>
-  </Frame>
+  </DesktopWindow>
 </template>
 
 <style scoped lang="scss">

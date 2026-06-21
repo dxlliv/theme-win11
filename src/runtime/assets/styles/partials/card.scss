@@ -1,5 +1,5 @@
 /*
- * Window chrome only (Frame → Card as direct child of `.owd-window`).
+ * Window chrome only (Card as direct child of `.owd-window`).
  * Avoid styling every `.p-card` (dialogs, panels, DataTable internals).
  */
 .owd-desktop--win11 .owd-window.resizable-component {
@@ -35,6 +35,14 @@
         0 0 0 1px rgba(255, 255, 255, 0.05) inset;
     }
 
+    &.desktop-explorer-frame-card--tight {
+      padding: 0;
+
+      > .p-card-header {
+        margin-bottom: 0;
+      }
+    }
+
     > .p-card-header {
       flex-shrink: 0;
       padding: 0;
@@ -62,15 +70,6 @@
     }
   }
 
-  &:not(.win11-explorer-frame) > .p-card > .p-card-header .owd-window-nav {
-    background: var(--win11-window-card-bg) !important;
-    color: var(--win11-shell-text) !important;
-
-    &--focused {
-      background: var(--win11-window-card-bg) !important;
-      color: var(--win11-shell-text) !important;
-    }
-  }
 }
 
 .win11-explorer-nav-row {

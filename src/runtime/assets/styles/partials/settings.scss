@@ -1,0 +1,488 @@
+/*
+ * Windows 11 Settings app — layout + surfaces inside `.win11-settings-window`.
+ */
+.owd-desktop--win11 .win11-settings-window {
+  > .p-card {
+    background: var(--win11-settings-surface, rgba(32, 32, 32, 0.78));
+  }
+
+  > .p-card > .p-card-body {
+    background: var(--win11-settings-surface, rgba(32, 32, 32, 0.78));
+  }
+
+  .owd-window__content {
+    overflow: hidden !important;
+  }
+}
+
+.win11-settings {
+  --win11-settings-nav-width: 248px;
+  --win11-settings-accent: #60cdff;
+  --win11-settings-surface: rgba(32, 32, 32, 0.78);
+  --win11-settings-nav-bg: rgba(24, 24, 26, 0.92);
+  --win11-settings-border: rgba(255, 255, 255, 0.08);
+  --win11-settings-card-bg: rgba(255, 255, 255, 0.04);
+  --win11-settings-card-hover: rgba(255, 255, 255, 0.07);
+  --win11-settings-muted: rgba(255, 255, 255, 0.62);
+
+  display: flex;
+  flex: 1 1 auto;
+  min-height: 0;
+  height: 100%;
+  overflow: hidden;
+  color: var(--win11-shell-text, rgba(255, 255, 255, 0.92));
+}
+
+.win11-settings__nav {
+  display: flex;
+  flex-direction: column;
+  flex-shrink: 0;
+  width: var(--win11-settings-nav-width);
+  min-height: 0;
+  border-right: 1px solid var(--win11-settings-border);
+  background: var(--win11-settings-nav-bg);
+}
+
+.win11-settings__nav-search {
+  position: relative;
+  flex-shrink: 0;
+  padding: 14px 12px 10px;
+}
+
+.win11-settings__nav-search-icon {
+  position: absolute;
+  top: 50%;
+  left: 22px;
+  transform: translateY(-50%);
+  width: 16px;
+  height: 16px;
+  color: var(--win11-settings-muted);
+  pointer-events: none;
+}
+
+.win11-settings__nav-search-input {
+  width: 100%;
+  box-sizing: border-box;
+  border: 1px solid var(--win11-settings-border);
+  border-bottom-color: rgba(255, 255, 255, 0.14);
+  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.04);
+  color: inherit;
+  font: inherit;
+  font-size: 13px;
+  line-height: 1.2;
+  padding: 7px 10px 7px 34px;
+  outline: none;
+  transition:
+    border-color 0.12s ease,
+    background 0.12s ease;
+
+  &::placeholder {
+    color: var(--win11-settings-muted);
+  }
+
+  &:focus {
+    border-color: rgba(96, 205, 255, 0.55);
+    background: rgba(255, 255, 255, 0.06);
+  }
+}
+
+.win11-settings__nav-list {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow-y: auto;
+  padding: 0 8px 12px;
+}
+
+.win11-settings__nav-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  border: 0;
+  border-radius: 4px;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  font-size: 13px;
+  line-height: 1.2;
+  text-align: left;
+  padding: 8px 10px;
+  cursor: pointer;
+  transition: background 0.12s ease;
+
+  &:hover {
+    background: rgba(255, 255, 255, 0.06);
+  }
+
+  &--active {
+    background: rgba(255, 255, 255, 0.09);
+    font-weight: 600;
+  }
+}
+
+.win11-settings__nav-item-icon {
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+  color: var(--win11-settings-muted);
+}
+
+.win11-settings__nav-item--active .win11-settings__nav-item-icon {
+  color: var(--win11-settings-accent);
+}
+
+.win11-settings__nav-item-label {
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.win11-settings__main {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 auto;
+  min-width: 0;
+  min-height: 0;
+}
+
+.win11-settings__header {
+  flex-shrink: 0;
+  padding: 28px 36px 8px;
+}
+
+.win11-settings__title {
+  margin: 0;
+  font-size: 28px;
+  font-weight: 600;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+}
+
+.win11-settings__scroll {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow-y: auto;
+  padding: 8px 36px 28px;
+}
+
+.win11-settings__page {
+  display: grid;
+  gap: 20px;
+  max-width: 860px;
+}
+
+.win11-settings__lead,
+.win11-settings__placeholder,
+.win11-settings__group-desc {
+  margin: 0;
+  font-size: 13px;
+  line-height: 1.55;
+  color: var(--win11-settings-muted);
+}
+
+.win11-settings__section-title,
+.win11-settings__group-title {
+  margin: 0;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 1.3;
+}
+
+.win11-settings__card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 8px;
+}
+
+.win11-settings__link-card,
+.win11-settings__card {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 100%;
+  border: 1px solid var(--win11-settings-border);
+  border-radius: 8px;
+  background: var(--win11-settings-card-bg);
+  color: inherit;
+  text-align: left;
+  transition:
+    background 0.12s ease,
+    border-color 0.12s ease;
+}
+
+.win11-settings__link-card {
+  padding: 12px 14px;
+  cursor: pointer;
+  font: inherit;
+
+  &:hover {
+    background: var(--win11-settings-card-hover);
+    border-color: rgba(255, 255, 255, 0.12);
+  }
+}
+
+.win11-settings__card {
+  flex-direction: column;
+  align-items: stretch;
+  padding: 16px 18px;
+}
+
+.win11-settings__card-title {
+  margin: 0 0 12px;
+  font-size: 14px;
+  font-weight: 600;
+}
+
+.win11-settings__link-card-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  flex-shrink: 0;
+  border-radius: 6px;
+  background: rgba(96, 205, 255, 0.12);
+  color: var(--win11-settings-accent);
+}
+
+.win11-settings__link-card-body {
+  display: grid;
+  gap: 2px;
+  flex: 1;
+  min-width: 0;
+}
+
+.win11-settings__link-card-title {
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.win11-settings__link-card-desc {
+  font-size: 12px;
+  line-height: 1.4;
+  color: var(--win11-settings-muted);
+}
+
+.win11-settings__link-card-chevron {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+  color: var(--win11-settings-muted);
+}
+
+.win11-settings__facts {
+  display: grid;
+  gap: 10px;
+  margin: 0;
+}
+
+.win11-settings__fact {
+  display: grid;
+  grid-template-columns: minmax(120px, 180px) 1fr;
+  gap: 12px;
+  font-size: 13px;
+
+  dt {
+    margin: 0;
+    color: var(--win11-settings-muted);
+  }
+
+  dd {
+    margin: 0;
+    font-weight: 500;
+  }
+}
+
+.win11-settings__group {
+  display: grid;
+  gap: 10px;
+}
+
+/* Personalization */
+.win11-settings-p13n__theme-grid,
+.win11-settings-p13n__effect-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 10px;
+}
+
+.win11-settings-p13n__theme-card,
+.win11-settings-p13n__effect-card {
+  display: grid;
+  gap: 10px;
+  border: 1px solid var(--win11-settings-border);
+  border-radius: 8px;
+  background: var(--win11-settings-card-bg);
+  color: inherit;
+  padding: 10px;
+  cursor: pointer;
+  text-align: left;
+  font: inherit;
+  transition:
+    border-color 0.12s ease,
+    box-shadow 0.12s ease,
+    background 0.12s ease;
+
+  &:hover {
+    background: var(--win11-settings-card-hover);
+  }
+
+  &--active {
+    border-color: rgba(96, 205, 255, 0.72);
+    box-shadow: 0 0 0 1px rgba(96, 205, 255, 0.45);
+  }
+}
+
+.win11-settings-p13n__theme-preview {
+  display: grid;
+  grid-template-rows: auto 1fr;
+  gap: 6px;
+  height: 84px;
+  border-radius: 6px;
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 8px;
+
+  &--dark {
+    background: linear-gradient(160deg, #202124 0%, #17181a 100%);
+  }
+
+  &--light {
+    background: linear-gradient(160deg, #f3f5f8 0%, #e7ebf0 100%);
+  }
+}
+
+.win11-settings-p13n__theme-preview-bar {
+  height: 8px;
+  width: 42%;
+  border-radius: 999px;
+  background: rgba(96, 205, 255, 0.75);
+}
+
+.win11-settings-p13n__theme-preview-pane {
+  flex: 1;
+  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.win11-settings-p13n__theme-preview--light .win11-settings-p13n__theme-preview-pane {
+  background: rgba(255, 255, 255, 0.82);
+}
+
+.win11-settings-p13n__theme-label,
+.win11-settings-p13n__effect-title {
+  font-size: 13px;
+  font-weight: 600;
+}
+
+.win11-settings-p13n__effect-card {
+  grid-template-columns: 72px 1fr;
+  align-items: center;
+  gap: 12px;
+}
+
+.win11-settings-p13n__effect-preview {
+  width: 72px;
+  height: 52px;
+  border-radius: 6px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+
+  &--acrylic {
+    background:
+      linear-gradient(135deg, rgba(96, 205, 255, 0.35), rgba(167, 139, 250, 0.28)),
+      rgba(32, 32, 36, 0.55);
+    backdrop-filter: blur(12px);
+  }
+
+  &--solid {
+    box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.08);
+  }
+}
+
+.win11-settings-p13n__effect-copy {
+  display: grid;
+  gap: 4px;
+}
+
+.win11-settings-p13n__effect-desc {
+  font-size: 12px;
+  line-height: 1.45;
+  color: var(--win11-settings-muted);
+}
+
+.win11-settings-p13n__tint-card {
+  padding: 14px 16px;
+}
+
+.win11-settings-p13n__swatches {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+}
+
+.win11-settings-p13n__swatch {
+  width: 28px;
+  height: 28px;
+  border-radius: 999px;
+  border: 2px solid transparent;
+  cursor: pointer;
+  padding: 0;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.18);
+
+  &--active {
+    border-color: var(--win11-settings-accent);
+    box-shadow:
+      0 0 0 1px rgba(96, 205, 255, 0.45),
+      inset 0 0 0 1px rgba(255, 255, 255, 0.18);
+  }
+}
+
+.win11-settings-p13n__picker-wrap {
+  display: inline-flex;
+}
+
+.win11-settings-p13n__picker {
+  width: 32px;
+  height: 28px;
+  padding: 0;
+  border: 1px solid var(--win11-settings-border);
+  border-radius: 6px;
+  background: transparent;
+  cursor: pointer;
+}
+
+.owd-desktop--win11.win11-personalization-appearance-light {
+  .win11-settings {
+    --win11-settings-surface: rgba(243, 245, 248, 0.94);
+    --win11-settings-nav-bg: rgba(236, 239, 244, 0.96);
+    --win11-settings-border: rgba(24, 30, 36, 0.1);
+    --win11-settings-card-bg: rgba(255, 255, 255, 0.72);
+    --win11-settings-card-hover: rgba(255, 255, 255, 0.92);
+    --win11-settings-muted: rgba(54, 66, 80, 0.78);
+    --win11-settings-accent: #005fb8;
+  }
+
+  .win11-settings-window > .p-card,
+  .win11-settings-window > .p-card > .p-card-body {
+    background: var(--win11-settings-surface);
+  }
+
+  .win11-settings__nav-search-input {
+    background: rgba(255, 255, 255, 0.82);
+    border-color: rgba(24, 30, 36, 0.12);
+  }
+
+  .win11-settings__nav-item:hover {
+    background: rgba(0, 0, 0, 0.04);
+  }
+
+  .win11-settings__nav-item--active {
+    background: rgba(0, 0, 0, 0.06);
+  }
+}

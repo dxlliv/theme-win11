@@ -1,6 +1,6 @@
 /*
  * Win11 Explorer: caption (tab strip) vs light chrome band (breadcrumb/search) vs darker body.
- * Flush Card padding uses Frame chromePadding=false + .win11-explorer-frame.
+ * Flush Card padding uses DesktopWindow chromePadding=false + .win11-explorer-frame.
  */
 .owd-desktop--win11 {
   .owd-window.win11-explorer-frame {
@@ -22,6 +22,7 @@
 
     .p-card-header .owd-window-nav {
       align-items: stretch;
+      min-height: var(--owd-windov-nav-height);
       background: var(--win11-explorer-caption-bg) !important;
       color: var(--win11-shell-text, rgba(245, 245, 245, 0.96)) !important;
       border-bottom: none !important;
@@ -29,6 +30,36 @@
       &--focused {
         background: var(--win11-explorer-caption-bg) !important;
         color: var(--win11-shell-text, rgba(245, 245, 245, 0.96)) !important;
+      }
+
+      .owd-window-nav__btn-group--append {
+        align-self: stretch;
+      }
+
+      .owd-window-nav__btn-group--append-inner {
+        display: flex;
+        align-items: stretch;
+      }
+
+      .owd-window-nav__button {
+        width: 46px;
+        min-width: 46px;
+        height: var(--owd-windov-nav-height);
+        min-height: var(--owd-windov-nav-height);
+        color: rgba(255, 255, 255, 0.88);
+
+        :deep(.iconify) {
+          color: currentColor;
+        }
+
+        &:hover {
+          background: rgba(255, 255, 255, 0.08);
+        }
+
+        &--close:hover {
+          background: rgba(232, 17, 35, 0.92);
+          color: #fff;
+        }
       }
     }
 

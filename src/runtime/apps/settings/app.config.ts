@@ -12,10 +12,10 @@ export default {
       component: () => import('./components/Window/WindowSettings.vue'),
       resizable: true,
       size: {
-        width: 900,
-        height: 600,
-        minWidth: 640,
-        minHeight: 480,
+        width: 1080,
+        height: 720,
+        minWidth: 760,
+        minHeight: 520,
       },
       position: {
         x: 120,

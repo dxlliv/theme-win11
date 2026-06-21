@@ -1,6 +1,7 @@
 <script setup lang="ts">
 defineProps<{
   title?: string
+  disabled?: boolean
 }>()
 </script>
 
@@ -10,6 +11,7 @@ defineProps<{
     class="owd-window-nav__button"
     :title="title"
     :aria-label="title"
+    :disabled="disabled"
     @mousedown.stop
   >
     <slot />
@@ -17,14 +19,17 @@ defineProps<{
 </template>
 
 <style scoped lang="scss">
+/* Sizing only — colors/hover in window-chrome.scss */
 .owd-window-nav__button {
   display: inline-flex;
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
-  width: 2.75rem;
-  height: 100%;
-  min-height: 2rem;
+  box-sizing: border-box;
+  width: 46px;
+  min-width: 46px;
+  height: var(--owd-windov-nav-height);
+  min-height: var(--owd-windov-nav-height);
   margin: 0;
   padding: 0;
   border: 0;
@@ -32,19 +37,16 @@ defineProps<{
   background: transparent;
   color: inherit;
   cursor: pointer;
-  transition: background-color 0.12s ease;
+
+  &:disabled {
+    opacity: 0.45;
+    cursor: default;
+    pointer-events: none;
+  }
 
   :deep(.iconify),
   :deep(svg) {
     pointer-events: none;
-  }
-
-  &:hover {
-    background: rgba(255, 255, 255, 0.08);
-  }
-
-  &:active {
-    background: rgba(255, 255, 255, 0.04);
   }
 }
 </style>

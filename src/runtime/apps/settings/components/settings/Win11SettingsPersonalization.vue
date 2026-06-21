@@ -9,11 +9,11 @@ const { t } = useI18n()
 const personalization = computed(() => desktopStore.state.personalization)
 
 const tintPresets = [
-  '#2d2d30',
-  '#3a2f3f',
-  '#2f3848',
-  '#36422e',
-  '#3f3427',
+  { value: '#2d2d30', label: 'Graphite' },
+  { value: '#3a2f3f', label: 'Plum' },
+  { value: '#2f3848', label: 'Steel' },
+  { value: '#36422e', label: 'Moss' },
+  { value: '#3f3427', label: 'Bronze' },
 ]
 
 function setSurface(value: 'acrylic' | 'solid') {
@@ -30,134 +30,152 @@ function setTint(value: string) {
 </script>
 
 <template>
-  <section class="win11-settings-p13n">
-    <h3 class="win11-settings-p13n__title">
-      {{ t('win11.settings.personalization.windowEffectTitle') }}
-    </h3>
-    <div class="win11-settings-p13n__row">
-      <label class="win11-settings-p13n__opt">
-        <input
-          type="radio"
-          name="windowSurface"
-          :checked="personalization.windowSurface === 'acrylic'"
-          @change="setSurface('acrylic')"
-        />
-        <span>{{ t('win11.settings.personalization.windowEffectAcrylic') }}</span>
-      </label>
-      <label class="win11-settings-p13n__opt">
-        <input
-          type="radio"
-          name="windowSurface"
-          :checked="personalization.windowSurface === 'solid'"
-          @change="setSurface('solid')"
-        />
-        <span>{{ t('win11.settings.personalization.windowEffectSolid') }}</span>
-      </label>
-    </div>
-
-    <div v-if="personalization.windowSurface === 'solid'" class="win11-settings-p13n__tint">
-      <p class="win11-settings-p13n__subtitle">
-        {{ t('win11.settings.personalization.tintTitle') }}
+  <section class="win11-settings__page win11-settings-p13n">
+    <div class="win11-settings__group">
+      <h2 class="win11-settings__group-title">
+        {{ t('win11.settings.personalization.appearanceTitle') }}
+      </h2>
+      <p class="win11-settings__group-desc">
+        {{ t('win11.settings.personalization.appearanceDesc') }}
       </p>
-      <div class="win11-settings-p13n__swatches">
+
+      <div class="win11-settings-p13n__theme-grid">
         <button
-          v-for="preset in tintPresets"
-          :key="preset"
           type="button"
-          class="win11-settings-p13n__swatch"
-          :title="preset"
-          :style="{ background: preset }"
-          @click="setTint(preset)"
-        />
-        <input
-          type="color"
-          class="win11-settings-p13n__picker"
-          :value="personalization.windowTint"
-          :aria-label="t('win11.settings.personalization.customTint')"
-          @input="setTint(($event.target as HTMLInputElement).value)"
-        />
+          class="win11-settings-p13n__theme-card"
+          :class="{
+            'win11-settings-p13n__theme-card--active':
+              personalization.appearance === 'dark',
+          }"
+          @click="setAppearance('dark')"
+        >
+          <span class="win11-settings-p13n__theme-preview win11-settings-p13n__theme-preview--dark">
+            <span class="win11-settings-p13n__theme-preview-bar" />
+            <span class="win11-settings-p13n__theme-preview-pane" />
+          </span>
+          <span class="win11-settings-p13n__theme-label">
+            {{ t('win11.settings.personalization.appearanceDark') }}
+          </span>
+        </button>
+
+        <button
+          type="button"
+          class="win11-settings-p13n__theme-card"
+          :class="{
+            'win11-settings-p13n__theme-card--active':
+              personalization.appearance === 'light',
+          }"
+          @click="setAppearance('light')"
+        >
+          <span class="win11-settings-p13n__theme-preview win11-settings-p13n__theme-preview--light">
+            <span class="win11-settings-p13n__theme-preview-bar" />
+            <span class="win11-settings-p13n__theme-preview-pane" />
+          </span>
+          <span class="win11-settings-p13n__theme-label">
+            {{ t('win11.settings.personalization.appearanceLight') }}
+          </span>
+        </button>
       </div>
     </div>
 
-    <h3 class="win11-settings-p13n__title">
-      {{ t('win11.settings.personalization.appearanceTitle') }}
-    </h3>
-    <div class="win11-settings-p13n__row">
-      <label class="win11-settings-p13n__opt">
-        <input
-          type="radio"
-          name="appearance"
-          :checked="personalization.appearance === 'dark'"
-          @change="setAppearance('dark')"
-        />
-        <span>{{ t('win11.settings.personalization.appearanceDark') }}</span>
-      </label>
-      <label class="win11-settings-p13n__opt">
-        <input
-          type="radio"
-          name="appearance"
-          :checked="personalization.appearance === 'light'"
-          @change="setAppearance('light')"
-        />
-        <span>{{ t('win11.settings.personalization.appearanceLight') }}</span>
-      </label>
+    <div class="win11-settings__group">
+      <h2 class="win11-settings__group-title">
+        {{ t('win11.settings.personalization.windowEffectTitle') }}
+      </h2>
+      <p class="win11-settings__group-desc">
+        {{ t('win11.settings.personalization.windowEffectDesc') }}
+      </p>
+
+      <div class="win11-settings-p13n__effect-grid">
+        <button
+          type="button"
+          class="win11-settings-p13n__effect-card"
+          :class="{
+            'win11-settings-p13n__effect-card--active':
+              personalization.windowSurface === 'acrylic',
+          }"
+          @click="setSurface('acrylic')"
+        >
+          <span
+            class="win11-settings-p13n__effect-preview win11-settings-p13n__effect-preview--acrylic"
+            aria-hidden="true"
+          />
+          <span class="win11-settings-p13n__effect-copy">
+            <span class="win11-settings-p13n__effect-title">
+              {{ t('win11.settings.personalization.windowEffectAcrylic') }}
+            </span>
+            <span class="win11-settings-p13n__effect-desc">
+              {{ t('win11.settings.personalization.windowEffectAcrylicDesc') }}
+            </span>
+          </span>
+        </button>
+
+        <button
+          type="button"
+          class="win11-settings-p13n__effect-card"
+          :class="{
+            'win11-settings-p13n__effect-card--active':
+              personalization.windowSurface === 'solid',
+          }"
+          @click="setSurface('solid')"
+        >
+          <span
+            class="win11-settings-p13n__effect-preview win11-settings-p13n__effect-preview--solid"
+            :style="{ background: personalization.windowTint }"
+            aria-hidden="true"
+          />
+          <span class="win11-settings-p13n__effect-copy">
+            <span class="win11-settings-p13n__effect-title">
+              {{ t('win11.settings.personalization.windowEffectSolid') }}
+            </span>
+            <span class="win11-settings-p13n__effect-desc">
+              {{ t('win11.settings.personalization.windowEffectSolidDesc') }}
+            </span>
+          </span>
+        </button>
+      </div>
+    </div>
+
+    <div
+      v-if="personalization.windowSurface === 'solid'"
+      class="win11-settings__group"
+    >
+      <h2 class="win11-settings__group-title">
+        {{ t('win11.settings.personalization.tintTitle') }}
+      </h2>
+      <p class="win11-settings__group-desc">
+        {{ t('win11.settings.personalization.tintDesc') }}
+      </p>
+
+      <div class="win11-settings__card win11-settings-p13n__tint-card">
+        <div class="win11-settings-p13n__swatches">
+          <button
+            v-for="preset in tintPresets"
+            :key="preset.value"
+            type="button"
+            class="win11-settings-p13n__swatch"
+            :class="{
+              'win11-settings-p13n__swatch--active':
+                personalization.windowTint === preset.value,
+            }"
+            :title="preset.label"
+            :aria-label="preset.label"
+            :style="{ background: preset.value }"
+            @click="setTint(preset.value)"
+          />
+          <label class="win11-settings-p13n__picker-wrap">
+            <span class="sr-only">
+              {{ t('win11.settings.personalization.customTint') }}
+            </span>
+            <input
+              type="color"
+              class="win11-settings-p13n__picker"
+              :value="personalization.windowTint"
+              @input="setTint(($event.target as HTMLInputElement).value)"
+            />
+          </label>
+        </div>
+      </div>
     </div>
   </section>
 </template>
-
-<style scoped lang="scss">
-.win11-settings-p13n {
-  display: grid;
-  gap: 10px;
-}
-
-.win11-settings-p13n__title {
-  margin: 10px 0 4px;
-  font-size: 14px;
-  font-weight: 600;
-}
-
-.win11-settings-p13n__subtitle {
-  margin: 2px 0;
-  font-size: 12px;
-  opacity: 0.78;
-}
-
-.win11-settings-p13n__row {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 12px;
-}
-
-.win11-settings-p13n__opt {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-}
-
-.win11-settings-p13n__tint {
-  display: grid;
-  gap: 8px;
-}
-
-.win11-settings-p13n__swatches {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-.win11-settings-p13n__swatch {
-  width: 24px;
-  height: 24px;
-  border-radius: 999px;
-  border: 1px solid rgba(255, 255, 255, 0.34);
-}
-
-.win11-settings-p13n__picker {
-  width: 28px;
-  height: 24px;
-  padding: 0;
-  border: none;
-  background: transparent;
-}
-</style>

@@ -3,9 +3,17 @@
  * Avoid styling every `.p-card` (dialogs, panels, DataTable internals).
  */
 .owd-desktop--win11 .owd-window.resizable-component {
+  box-sizing: border-box;
+  display: inline-block;
+  min-width: 160px;
+  min-height: 160px;
+
   > .p-card {
     position: relative;
     overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
     background: var(--win11-window-card-bg, rgba(32, 32, 32, 0.72));
     color: var(--win11-window-text, rgba(245, 245, 245, 0.96));
     border-radius: var(--p-window-border-radius);
@@ -27,17 +35,30 @@
         0 0 0 1px rgba(255, 255, 255, 0.05) inset;
     }
 
-    > .p-card-body {
-      background: var(--win11-window-card-body-bg, rgba(22, 22, 24, 0.55));
-      color: var(--win11-window-text, rgba(245, 245, 245, 0.96));
-      box-shadow: none;
-    }
-
     > .p-card-header {
+      flex-shrink: 0;
       padding: 0;
       margin: 0 !important;
       border-radius: var(--p-window-border-radius) var(--p-window-border-radius) 0 0;
       overflow: hidden;
+    }
+
+    > .p-card-body {
+      flex: 1 1 auto;
+      min-height: 0;
+      display: flex;
+      flex-direction: column;
+      background: var(--win11-window-card-body-bg, rgba(22, 22, 24, 0.55));
+      color: var(--win11-window-text, rgba(245, 245, 245, 0.96));
+      box-shadow: none;
+
+      > .p-card-content {
+        flex: 1 1 auto;
+        display: flex;
+        flex-direction: column;
+        height: 100%;
+        min-height: 0;
+      }
     }
   }
 

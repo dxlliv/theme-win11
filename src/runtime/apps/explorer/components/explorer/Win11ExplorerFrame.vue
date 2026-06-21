@@ -1,8 +1,5 @@
 <script setup lang="ts">
 import { useSlots, computed, useAttrs } from 'vue'
-import Minimize from '@owdproject/kit-primevue/runtime/components/explorer/button/Minimize.vue'
-import Maximize from '@owdproject/kit-primevue/runtime/components/explorer/button/Maximize.vue'
-import Close from '@owdproject/kit-primevue/runtime/components/explorer/button/Close.vue'
 
 const props = withDefaults(
   defineProps<{
@@ -42,21 +39,6 @@ const cardRootClass = computed(
       .filter(Boolean)
       .join(' '),
 )
-
-function onWindowMinimize() {
-  if (!props.window?.instanced) return
-  props.window.actions.minimize()
-}
-
-function onWindowMaximize() {
-  if (!props.window) return
-  props.window.actions.toggleMaximize()
-}
-
-function onWindowClose() {
-  if (!props.window?.instanced) return
-  props.window.actions.destroy()
-}
 </script>
 
 <template>
@@ -75,52 +57,17 @@ function onWindowClose() {
     <Card :pt:root="cardRootClass">
       <template #header>
         <div class="desktop-explorer-frame__header-stack">
-          <DesktopCoreWindowNav @dblclick="onWindowMaximize">
+          <DesktopWindowNav>
             <template #prepend>
               <slot name="nav-prepend" />
             </template>
-            
-            <template v-if="$slots['nav-title']">
+            <template v-if="$slots['nav-title']" #title>
               <slot name="nav-title" />
             </template>
-            <template v-else>
-              <div v-if="props.window?.icon" class="owd-window-nav__icon">
-                <Icon :name="props.window.icon" size="16" />
-              </div>
-
-              <div v-if="props.window?.title" class="owd-window-nav__title">
-                <div
-                  class="owd-window-nav__title-inner truncate"
-                  v-text="props.window.title"
-                />
-              </div>
+            <template #append>
+              <slot name="nav-append" />
             </template>
-
-            <div class="owd-window-nav__btn-group owd-window-nav__btn-group--append">
-              <div
-                v-if="$slots['nav-append']"
-                class="owd-window-nav__btn-group owd-window-nav__btn-group--append-inner"
-              >
-                <slot name="nav-append" />
-              </div>
-
-              <Minimize
-                v-if="!props.window?.instanced || props.window?.isMinimizable"
-                @mousedown.stop
-                @click.stop="onWindowMinimize"
-              />
-              <Maximize
-                v-if="props.window?.isMaximizable"
-                @mousedown.stop
-                @click.stop="onWindowMaximize"
-              />
-              <Close
-                v-if="!props.window?.instanced || props.window?.isDestroyable"
-                @mousedown.stop
-                @click.stop="onWindowClose"
-              />
-            </div>
-          </DesktopCoreWindowNav>
+          </DesktopWindowNav>
           <div
             v-if="hasHeaderBelowNavSlot"
             class="desktop-explorer-frame__header-below-nav"

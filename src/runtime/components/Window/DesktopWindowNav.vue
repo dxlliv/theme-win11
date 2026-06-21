@@ -1,0 +1,136 @@
+<script setup lang="ts">
+import { inject } from 'vue'
+import { useToggleWindowMaximize } from '@owdproject/core/runtime/composables/useToggleWindowMaximize'
+import Minimize from '@owdproject/kit-primevue/runtime/components/explorer/button/Minimize.vue'
+import Maximize from '@owdproject/kit-primevue/runtime/components/explorer/button/Maximize.vue'
+import Close from '@owdproject/kit-primevue/runtime/components/explorer/button/Close.vue'
+
+const windowController = inject<IWindowController>('windowController')
+const toggleWindowMaximize = useToggleWindowMaximize()
+
+function onWindowMinimize() {
+  if (!windowController?.instanced) return
+  windowController.actions.minimize()
+}
+
+function onWindowMaximize() {
+  if (!windowController) return
+  toggleWindowMaximize(windowController)
+}
+
+function onWindowClose() {
+  if (!windowController?.instanced) return
+  windowController.actions.destroy()
+}
+</script>
+
+<template>
+  <DesktopCoreWindowNav @dblclick="onWindowMaximize">
+    <div
+      v-if="$slots.prepend"
+      class="owd-window-nav__btn-group owd-window-nav__btn-group--prepend"
+    >
+      <slot name="prepend" />
+    </div>
+
+    <template v-if="$slots.title">
+      <slot name="title" />
+    </template>
+    <template v-else>
+      <div v-if="windowController?.icon" class="owd-window-nav__icon">
+        <Icon :name="windowController.icon" size="16" />
+      </div>
+
+      <div v-if="windowController?.windowTitle" class="owd-window-nav__title">
+        <div
+          class="owd-window-nav__title-inner truncate"
+          v-text="windowController.windowTitle"
+        />
+      </div>
+    </template>
+
+    <div class="owd-window-nav__btn-group owd-window-nav__btn-group--append">
+      <div
+        v-if="$slots.append"
+        class="owd-window-nav__btn-group owd-window-nav__btn-group--append-inner"
+      >
+        <slot name="append" />
+      </div>
+
+      <Minimize
+        v-if="!windowController?.instanced || windowController?.isMinimizable"
+        @mousedown.stop
+        @click.stop="onWindowMinimize"
+      />
+      <Maximize
+        v-if="windowController?.isMaximizable"
+        @mousedown.stop
+        @click.stop="onWindowMaximize"
+      />
+      <Close
+        v-if="!windowController?.instanced || windowController?.isDestroyable"
+        @mousedown.stop
+        @click.stop="onWindowClose"
+      />
+    </div>
+  </DesktopCoreWindowNav>
+</template>
+
+<style scoped lang="scss">
+:deep(.owd-window-nav) {
+  display: flex;
+  align-items: center;
+  flex-shrink: 0;
+  width: 100%;
+  height: var(--owd-windov-nav-height);
+  min-height: var(--owd-windov-nav-height);
+  font-size: var(--p-font-size);
+  line-height: 1rem;
+}
+
+.owd-window-nav__btn-group {
+  display: flex;
+  flex-shrink: 0;
+  align-items: stretch;
+  gap: 0;
+  padding: 0;
+}
+
+.owd-window-nav__btn-group--prepend {
+  padding-left: 4px;
+}
+
+.owd-window-nav__btn-group--append {
+  margin-left: auto;
+}
+
+.owd-window-nav__btn-group--append-inner {
+  gap: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+.owd-window-nav__icon {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  width: 2rem;
+  padding-left: 4px;
+}
+
+.owd-window-nav__title {
+  display: flex;
+  align-items: center;
+  flex: 1 1 auto;
+  min-width: 0;
+  padding: 0 8px;
+  text-align: left;
+}
+
+.owd-window-nav__title-inner {
+  margin: 0;
+  max-width: 100%;
+}
+</style>

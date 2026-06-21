@@ -69,7 +69,12 @@ function onWindowClose() {
           </template>
 
           <div class="owd-window-nav__btn-group owd-window-nav__btn-group--append">
-            <slot name="nav-append" />
+            <div
+              v-if="$slots['nav-append']"
+              class="owd-window-nav__btn-group owd-window-nav__btn-group--append-inner"
+            >
+              <slot name="nav-append" />
+            </div>
 
             <Minimize
               v-if="!props.window?.instanced || props.window?.isMinimizable"
@@ -90,9 +95,9 @@ function onWindowClose() {
         </DesktopCoreWindowNav>
       </template>
       <template #content>
-        <DesktopCoreWindowContent>
+        <DesktopWindowContent>
           <slot />
-        </DesktopCoreWindowContent>
+        </DesktopWindowContent>
       </template>
     </Card>
   </DesktopCoreWindow>

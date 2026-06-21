@@ -9,6 +9,11 @@
   },
   "dependencies": {
     "@owdproject/app-classic-audioplayer": "workspace:*",
+    "@owdproject/app-gridsky": "workspace:*",
+    "@owdproject/app-soundcloud": "workspace:*",
+    "@owdproject/app-terminal": "workspace:*",
+    "@owdproject/app-wasmboy": "workspace:*",
+    "@owdproject/app-youtube": "workspace:*",
     "@owdproject/core": "workspace:*",
     "@owdproject/module-fs": "workspace:*",
     "@owdproject/module-persistence": "workspace:*",

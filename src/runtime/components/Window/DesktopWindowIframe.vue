@@ -27,6 +27,12 @@ const isWebUrl = computed(() => /^https?:\/\//i.test(iframeSrc.value))
     :window="window"
     :chrome-padding="false"
   >
+    <template #nav-prepend>
+      <slot name="nav-prepend" />
+    </template>
+    <template #nav-append>
+      <slot name="nav-append" />
+    </template>
     <iframe
       v-if="isWebUrl"
       :class="{ 'pointer-events-none': window && !window.state.focused }"

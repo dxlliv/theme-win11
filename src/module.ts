@@ -5,7 +5,7 @@ import {
   addPlugin,
   installModule,
 } from '@nuxt/kit'
-import { defineDesktopTheme } from '@owdproject/core'
+import { defineDesktopTheme, hasDesktopModule } from '@owdproject/core'
 import {
   registerTailwindPath,
   registerThemeTailwindPath,
@@ -58,7 +58,7 @@ export default defineDesktopTheme({
 
     registerThemeTailwindPath(nuxt, import.meta.url)
 
-    if (nuxt.options.modules.includes('@owdproject/module-fs')) {
+    if (hasDesktopModule(nuxt, 'module-fs')) {
       addPlugin({
         src: resolve('./runtime/plugins/win11-module-fs-recent.client.ts'),
         mode: 'client',
@@ -100,7 +100,7 @@ export default defineDesktopTheme({
       path: resolve('./runtime/apps/settings/components'),
     })
 
-    if (nuxt.options.modules.includes('@owdproject/module-fs')) {
+    if (hasDesktopModule(nuxt, 'module-fs')) {
       addPlugin({
         src: resolve('./runtime/apps/explorer/plugin.ts'),
         mode: 'client',

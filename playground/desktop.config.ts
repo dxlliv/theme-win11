@@ -5,7 +5,9 @@ export default defineDesktopConfig({
   modules: ['@owdproject/module-fs', '@owdproject/module-persistence'],
   apps: [
     '@owdproject/app-classic-audioplayer',
+    '@owdproject/app-classic-videoplayer',
     '@owdproject/app-gridsky',
+    '@owdproject/app-slowroads',
     '@owdproject/app-wasmboy',
     '@owdproject/app-terminal',
     '@owdproject/app-youtube',

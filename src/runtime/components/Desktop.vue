@@ -77,6 +77,12 @@ const taskbarApps = computed(() => {
 })
 
 function openExplorer() {
+  if (!applicationManager.isAppDefined('org.owdproject.explorer')) {
+    console.warn(
+      '[win11] Explorer is not registered — add @owdproject/module-fs to desktop.config modules.',
+    )
+    return
+  }
   void applicationManager.launchAppEntry(
     'org.owdproject.explorer',
     'explorer',
